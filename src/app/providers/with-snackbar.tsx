@@ -15,5 +15,6 @@ export const SnackBarProvider = ({ children }: PropsWithChildren) => (
   </NotiStackSnackbarProvider>
 );
 
-export const withSnackbar = (component: () => React.ReactNode) => () =>
-  <SnackBarProvider>{component()}</SnackBarProvider>;
+export const withSnackbar = (component: () => React.ReactNode) => () => (
+  <SnackBarProvider>{component()}</SnackBarProvider>
+);

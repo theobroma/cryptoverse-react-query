@@ -40,9 +40,8 @@ export const ThemeMenu = () => {
   };
 
   useUpdateEffect(() => {
-    const labelText = themeOptions.find(
-      ({ value }) => value === currentTheme,
-    )?.label;
+    const labelText = themeOptions.find(({ value }) => value === currentTheme)
+      ?.label;
     enqueueSnackbar(`Theme changed to ${labelText}`, {
       variant: 'warning',
     });

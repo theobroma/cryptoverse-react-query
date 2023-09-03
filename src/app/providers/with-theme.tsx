@@ -110,5 +110,6 @@ const AppThemeProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-export const withTheme = (component: () => React.ReactNode) => () =>
-  <AppThemeProvider>{component()}</AppThemeProvider>;
+export const withTheme = (component: () => React.ReactNode) => () => (
+  <AppThemeProvider>{component()}</AppThemeProvider>
+);
