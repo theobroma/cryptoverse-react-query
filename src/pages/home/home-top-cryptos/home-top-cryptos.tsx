@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
 import { Link as RouterLink } from 'react-router-dom';
 
 import LinkIcon from '@mui/icons-material/Link';
 import { Grid, Box, Typography, Button } from '@mui/material';
 
 import { PageEnum } from '@/enums/page.enum';
+import { loadCryptos } from '@/shared/api/coins';
 import { useGetCryptosQuery } from '@/store/coins/api';
 import { CryptoList } from '@/widgets/crypto-list/crypto-list';
 
@@ -12,6 +14,13 @@ export const HomeTopCryptos = () => {
     useGetCryptosQuery({ count: 10 });
   const coins = data?.data?.coins || [];
   // console.log('coins :>> ', coins);
+
+  // Queries
+  const query = useQuery({ queryKey: ['loadCryptos'], queryFn: loadCryptos() });
+  console.log(
+    '🚀 ~ file: home-top-cryptos.tsx:20 ~ HomeTopCryptos ~ query:',
+    query,
+  );
 
   return (
     <>

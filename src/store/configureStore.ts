@@ -33,7 +33,10 @@ export const rootReducer: Reducer<RootState> = (state, action) => {
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([logger, emptySplitApi.middleware]),
+    getDefaultMiddleware().concat([
+      // logger,
+      emptySplitApi.middleware,
+    ]),
   // devTools: process.env.NODE_ENV === 'development',
   devTools: true,
 });
