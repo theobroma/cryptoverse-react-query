@@ -1,5 +1,6 @@
 import compose from 'compose-function';
 
+import { withQuery } from './with-query';
 import { withRouter } from './with-router';
 import { withSnackbar } from './with-snackbar';
 import { withStore } from './with-store';
@@ -10,4 +11,5 @@ export const withProviders = compose(
   withTheme,
   withSnackbar,
   withRouter,
+  withQuery,
 );
