@@ -19,7 +19,8 @@ const themeMap = {
   [ThemeEnum.PinkBlueGreyTheme]: PINK_BLUE_GREY_THEME,
 };
 
-const ThemeContext = createContext({
+export const ThemeContext = createContext({
+  themePalette: ThemeEnum.Light,
   changeThemePalette: (palette: ThemeEnum) => {},
 });
 
@@ -27,8 +28,10 @@ const AppThemeProvider = ({ children }: PropsWithChildren) => {
   const [themePalette, setThemePalette] = React.useState<ThemeEnum>(
     ThemeEnum.DeepPurpleAmber,
   );
+
   const currentThemePalette = React.useMemo(
     () => ({
+      themePalette,
       changeThemePalette: (palette: ThemeEnum) => {
         setThemePalette(palette);
       },

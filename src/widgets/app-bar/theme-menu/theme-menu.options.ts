@@ -1,7 +1,7 @@
 import { ThemeEnum } from '@/enums/theme.enum';
 import { BaseOptionInterface } from '@/types';
 
-export const themeOptions: BaseOptionInterface[] = [
+export const themeOptions: BaseOptionInterface<ThemeEnum>[] = [
   {
     value: ThemeEnum.Light,
     label: 'Light',

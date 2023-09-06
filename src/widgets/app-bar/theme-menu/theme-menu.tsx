@@ -1,5 +1,5 @@
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import * as React from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -8,26 +8,23 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import { Box, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 
-import { useAppDispatch, useAppSelector } from '@/store/configureStore';
-import { themeSelector } from '@/store/ui/selectors';
-import { setThemeAC } from '@/store/ui/slice';
-import { BaseOptionInterface } from '@/types';
+import { ThemeContext } from '@/app/providers/with-theme';
+import { ThemeEnum } from '@/enums/theme.enum';
 
 import { themeOptions } from './theme-menu.options';
 
 export const ThemeMenu = () => {
-  const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const currentTheme = useAppSelector(themeSelector);
+  const { changeThemePalette, themePalette } = useContext(ThemeContext);
 
   const isMenuOpen = Boolean(anchorEl);
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLElement>,
-    value: BaseOptionInterface['value'],
+    value: ThemeEnum,
   ) => {
-    dispatch(setThemeAC(value));
+    changeThemePalette(value);
     setAnchorEl(null);
   };
 
@@ -40,12 +37,12 @@ export const ThemeMenu = () => {
   };
 
   useUpdateEffect(() => {
-    const labelText = themeOptions.find(({ value }) => value === currentTheme)
+    const labelText = themeOptions.find(({ value }) => value === themePalette)
       ?.label;
     enqueueSnackbar(`Theme changed to ${labelText}`, {
       variant: 'warning',
     });
-  }, [enqueueSnackbar, currentTheme]);
+  }, [enqueueSnackbar, themePalette]);
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -67,10 +64,10 @@ export const ThemeMenu = () => {
       {themeOptions.map((option) => (
         <MenuItem
           key={option.value}
-          selected={option.value === currentTheme}
+          selected={option.value === themePalette}
           onClick={(event) => handleMenuItemClick(event, option.value)}
         >
-          {option.value === currentTheme ? (
+          {option.value === themePalette ? (
             <RadioButtonCheckedIcon
               fontSize="small"
               color="primary"
