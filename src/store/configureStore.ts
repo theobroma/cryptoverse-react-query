@@ -6,16 +6,13 @@ import { createLogger } from 'redux-logger';
 
 import { emptySplitApi } from '@/shared/api/emptySplitApi';
 
-import { uiSlice } from './ui/slice';
-// import { RESET_STATE_ACTION_TYPE } from './actions/resetState';
-
 const logger = createLogger({
   collapsed: true,
 });
 
 const reducers = {
   // Slices
-  [uiSlice.name]: uiSlice.reducer,
+  // [uiSlice.name]: uiSlice.reducer,
   // API
   [emptySplitApi.reducerPath]: emptySplitApi.reducer,
 };
@@ -23,10 +20,6 @@ const reducers = {
 const combinedReducer = combineReducers<typeof reducers>(reducers);
 
 export const rootReducer: Reducer<RootState> = (state, action) => {
-  //   if (action.type === RESET_STATE_ACTION_TYPE) {
-  //     state = {} as RootState;
-  //   }
-
   return combinedReducer(state, action);
 };
 
