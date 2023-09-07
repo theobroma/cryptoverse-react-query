@@ -6,21 +6,13 @@ import { Grid, Box, Typography, Button } from '@mui/material';
 
 import { PageEnum } from '@/enums/page.enum';
 import { loadCryptos } from '@/shared/api/coins';
-import { useGetCryptosQuery } from '@/store/coins/api';
 import { CryptoList } from '@/widgets/crypto-list/crypto-list';
 
 export const HomeTopCryptos = () => {
-  const { data, error, isError, isFetching, isLoading, isSuccess } =
-    useGetCryptosQuery({ count: 10 });
-  const coins = data?.data?.coins || [];
-  // console.log('coins :>> ', coins);
-
-  // Queries
-  const query = useQuery({ queryKey: ['loadCryptos'], queryFn: loadCryptos() });
-  console.log(
-    '🚀 ~ file: home-top-cryptos.tsx:20 ~ HomeTopCryptos ~ query:',
-    query,
-  );
+  const query = useQuery({
+    queryKey: ['loadCryptos'],
+    queryFn: loadCryptos,
+  });
 
   return (
     <>
@@ -49,7 +41,10 @@ export const HomeTopCryptos = () => {
           </RouterLink>
         </Box>
       </Grid>
-      <CryptoList coins={coins} isFetching={isFetching} />
+      <CryptoList
+        coins={query.data?.coins || []}
+        isFetching={query.isLoading}
+      />
     </>
   );
 };
